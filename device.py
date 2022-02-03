@@ -38,10 +38,27 @@ def main():
         .child(backend._device_info['serial']) \
         .child('leds') \
         .stream(led_stream_handler)
+    
+    while True:
+        for event in sense.stick.get_events():
+            if(event.action == "pressed"):
+                if(event.direction == "middle"):
+                    clear_leds()
+            
 
     # to be implemented by students
-    def clear_leds():
-        raise NotImplementedError("clear_leds should be implemented by students.")
+def clear_leds():
+    B = (0,0,0)
+    all_pixels = [
+        B, B, B, B, B, B, B, B,
+        B, B, B, B, B, B, B, B,
+        B, B, B, B, B, B, B, B,
+        B, B, B, B, B, B, B, B,
+        B, B, B, B, B, B, B, B,
+        B, B, B, B, B, B, B, B,
+        B, B, B, B, B, B, B, B,
+        B, B, B, B, B, B, B, B]
+    sense.set_pixels(all_pixels)
 
 if __name__ == '__main__':
     main()
